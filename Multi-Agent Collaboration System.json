@@ -1,0 +1,321 @@
+{
+  "name": "Multi-Agent Collaboration System",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "36d4d1d2-db92-47db-9cef-93c5cfae709f",
+      "name": "When chat message received",
+      "webhookId": "2c53d0d4-9d6d-452e-bd33-e1e4688efd7b"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are a Supervisor Agent in a Multi-Agent System.\n\nWhen a user provides a topic, do NOT ask for more information.\n\nYour job is to:\n1. Accept the topic.\n2. Create a research task.\n3. Pass the topic to the Research Agent.\n4. Collect the results.\n5. Pass the results to the Summary Agent.\n6. Pass the summary to the Verification Agent.\n7. Generate a final report.\n\nAlways start processing immediately.\n\nIf the topic is \"Artificial Intelligence in Education\", create a task for researching AI in Education and continue the workflow without asking questions.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a797e94e-d36a-493c-a971-6a8ac9051e8d",
+      "name": "Supervisor Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        208,
+        224
+      ],
+      "id": "a733abc4-5a34-439b-9986-9e59bc288444",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "nK2psiLNBl68NGXa",
+          "name": "Groq account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are a Research Agent.\n\nPretend you are using a web search tool to gather information about the topic.\n\nReturn:\n- Information collected\n- Source type used (Web Search, Database, Knowledge Base)\n\nThen provide research findings.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        560,
+        0
+      ],
+      "id": "5cb007ab-1564-417e-8ba6-393ca57fa66e",
+      "name": "Research Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        560,
+        208
+      ],
+      "id": "e9ec3b06-2492-42b8-ab6c-388092f25a9f",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "nK2psiLNBl68NGXa",
+          "name": "Groq account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are a Summary Agent.\n\nYour task is to summarize the research findings received from the Research Agent.\n\nProvide:\n- A concise summary\n- Key points\n- Main benefits\n- Main challenges\n\nReturn only the summary.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        912,
+        0
+      ],
+      "id": "8e9c1036-01a2-4dc9-842e-eb513c746cbd",
+      "name": "Summary Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        912,
+        224
+      ],
+      "id": "7ab1aca9-fa92-4644-a873-db685be288e0",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "nK2psiLNBl68NGXa",
+          "name": "Groq account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        240
+      ],
+      "id": "80ee164e-a9e7-406f-a165-f8bb63faeff5",
+      "name": "Groq Chat Model3",
+      "credentials": {
+        "groqApi": {
+          "id": "nK2psiLNBl68NGXa",
+          "name": "Groq account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1616,
+        240
+      ],
+      "id": "de1ca08d-e204-48a4-9692-2a9027d823ca",
+      "name": "Groq Chat Model4",
+      "credentials": {
+        "groqApi": {
+          "id": "nK2psiLNBl68NGXa",
+          "name": "Groq account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are a Verification Agent.\n\nReview the summary provided.\n\nCheck:\n- Accuracy\n- Consistency\n- Completeness\n\nReturn a verified summary and indicate whether the information appears reliable.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1264,
+        0
+      ],
+      "id": "f3a90e8e-0429-44cf-98d3-ce61ebfa643c",
+      "name": "Verification Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are the Final Report Agent.\n\nCreate a professional report using the verified summary.\n\nStructure:\n1. Introduction\n2. Applications of AI in Education\n3. Benefits\n4. Challenges\n5. Conclusion\n\nReturn the final report only.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1616,
+        0
+      ],
+      "id": "0808bc5b-283c-4796-8dc1-6a988c71b249",
+      "name": "Final Report Agent"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Supervisor Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Supervisor Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supervisor Agent": {
+      "main": [
+        [
+          {
+            "node": "Research Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Research Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Agent": {
+      "main": [
+        [
+          {
+            "node": "Summary Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summary Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summary Agent": {
+      "main": [
+        [
+          {
+            "node": "Verification Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Verification Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Final Report Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verification Agent": {
+      "main": [
+        [
+          {
+            "node": "Final Report Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0204741c-e680-4e62-b949-52b583437487",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7dcab3f71c0ad79fe21d89c98604c79e0151702b7adb9f8892b3eb068050cbcd"
+  },
+  "nodeGroups": [],
+  "id": "yqgW2l98DJHuaYGo",
+  "tags": []
+}
