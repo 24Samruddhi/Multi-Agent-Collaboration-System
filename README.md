@@ -143,7 +143,8 @@ Final Report Agent
 
 **Figure 1: Multi-Agent Workflow**
 
-<img width="1600" height="775" alt="image" src="https://github.com/user-attachments/assets/62f729db-5d73-435a-9e40-3df8e967ec7b" />
+<img width="1483" height="447" alt="image" src="https://github.com/user-attachments/assets/6ea60237-ed51-47e3-8040-452f25237d79" />
+
 
 
 ### Workflow Explanation
